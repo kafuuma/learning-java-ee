@@ -1,8 +1,11 @@
 package com.henry.javaee.entity;
 
 public class Specification {
+
     private final Color color;
     private final EngineType engineType;
+
+
 
     public Specification(Color color, EngineType engineType) {
         this.color = color;
@@ -16,4 +19,6 @@ public class Specification {
     public EngineType getEngineType() {
         return engineType;
     }
+
+
 }

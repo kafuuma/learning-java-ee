@@ -19,7 +19,9 @@
   </dependencies>
 
   <build>
-    <finalName>learning-java-ee</finalName>
+
+    <finalName>cars</finalName>
+
   </build>
 
   <properties>

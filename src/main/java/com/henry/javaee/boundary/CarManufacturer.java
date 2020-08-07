@@ -11,6 +11,9 @@ import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
+import java.util.List;
+
+
 
 @Stateless
 public class CarManufacturer {
@@ -29,6 +32,11 @@ public class CarManufacturer {
         carRepository.store(car);
         carCreated.fire(new CarCreated(car.getIdentifier()));
         return car;
+    }
+
+
+    public List<Car> retrieveCars(){
+        return carRepository.loadCars();
     }
 
 }
