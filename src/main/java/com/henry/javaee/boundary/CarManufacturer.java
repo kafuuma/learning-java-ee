@@ -1,5 +1,6 @@
 package com.henry.javaee.boundary;
 
+import com.henry.javaee.control.CarStorageException;
 import com.henry.javaee.entity.Car;
 import com.henry.javaee.entity.CarCreated;
 import com.henry.javaee.entity.EngineType;
@@ -11,6 +12,8 @@ import com.henry.javaee.control.CarRepository;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,24 +24,26 @@ public class CarManufacturer {
     @Inject
     CarFactory carFactory;
 
-    @Inject
-    CarRepository carRepository;
+    @PersistenceContext
+    EntityManager entityManager;
 
-    public Car manufactureCar(Specification specification) {
+    public Car manufactureCar(Specification specification) throws CarStorageException {
         Car car = carFactory.createCar(specification);
-        carRepository.store(car);
+        entityManager.persist(car);
+//        throw  new CarStorageException("!");
         return car;
     }
 
     public List<Car> retrieveCars() {
-        return carRepository.loadCars();
+
+        return entityManager.createNamedQuery(Car.FIND_ALL, Car.class).getResultList();
     }
 
-    public List<Car> retrieveCars(EngineType filter) {
-        return carRepository.loadCars().stream()
-                .filter(c -> c.getEngineType() == filter)
-                .collect(Collectors.toList());
-    }
+//    public List<Car> retrieveCars(EngineType filter) {
+//        return carRepository.loadCars().stream()
+//                .filter(c -> c.getEngineType() == filter)
+//                .collect(Collectors.toList());
+//    }
 
     public Car retrieveCar(String identifier) {
         Car car = new Car();

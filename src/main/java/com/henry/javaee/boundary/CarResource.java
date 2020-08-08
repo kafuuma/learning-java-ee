@@ -31,7 +31,7 @@ public class CarResource {
 
     @GET
     public JsonArray retrieveCars(@NotNull @QueryParam("filter") EngineType engineType) {
-        return carManufacturer.retrieveCars(engineType)
+        return carManufacturer.retrieveCars()
                 .stream()
                 .map(c -> Json.createObjectBuilder()
                         .add("identifier", c.getIdentifier())

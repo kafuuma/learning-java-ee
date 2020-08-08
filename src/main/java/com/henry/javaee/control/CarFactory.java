@@ -5,6 +5,7 @@ import com.henry.javaee.entity.Color;
 import com.henry.javaee.entity.Specification;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.UUID;
 
 
@@ -14,6 +15,7 @@ public class CarFactory {
     @Diesel
     Color defaultCarColor;
 
+    @Transactional(rollbackOn = CarStorageException.class)
     public Car createCar(Specification specification) {
         Car car = new Car();
         car.setIdentifier(UUID.randomUUID().toString());
