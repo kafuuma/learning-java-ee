@@ -1,5 +1,6 @@
 package com.henry.javaee.boundary;
 
+import com.henry.javaee.control.CarStorageException;
 import com.henry.javaee.entity.Car;
 import com.henry.javaee.entity.EngineType;
 import com.henry.javaee.entity.Specification;
@@ -43,7 +44,7 @@ public class CarResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createCar(@Valid @NotNull Specification specification) {
+    public Response createCar(@Valid @NotNull Specification specification) throws CarStorageException {
         Car car = carManufacturer.manufactureCar(specification);
 
         URI uri = uriInfo.getBaseUriBuilder()

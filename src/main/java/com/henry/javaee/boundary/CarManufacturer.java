@@ -1,13 +1,10 @@
 package com.henry.javaee.boundary;
 
-import com.henry.javaee.control.CarStorageException;
-import com.henry.javaee.control.ProcessTrackingInterceptor;
+import com.henry.javaee.control.*;
 import com.henry.javaee.entity.Car;
 import com.henry.javaee.entity.CarCreated;
 import com.henry.javaee.entity.EngineType;
 import com.henry.javaee.entity.Specification;
-import com.henry.javaee.control.CarFactory;
-import com.henry.javaee.control.CarRepository;
 
 
 import javax.ejb.Stateless;
@@ -18,28 +15,49 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 
 @Stateless
 public class CarManufacturer {
+
     @Inject
     CarFactory carFactory;
 
     @PersistenceContext
     EntityManager entityManager;
 
+    @Inject
+    CarCache carCache;
+
+    @Inject
+    FatalLogger fatalLogger;
+
+    //we can also logg
+//    @Inject
+//    Consumer<FatalLoggerExposer> fatalLogger;
+
     @Interceptors(ProcessTrackingInterceptor.class)
     public Car manufactureCar(Specification specification) throws CarStorageException {
         Car car = carFactory.createCar(specification);
-        entityManager.persist(car);
+//        entityManager.persist(car);
 //        throw  new CarStorageException("!");
+        carCache.cacheCar(car); //we can also implement an interceptor to cache the car
+
+        try {
+
+        }catch (Exception e){
+            fatalLogger.fatal(e);
+//            fatalLogger.accept(e);
+        }
         return car;
     }
 
     public List<Car> retrieveCars() {
 
-        return entityManager.createNamedQuery(Car.FIND_ALL, Car.class).getResultList();
+//        return entityManager.createNamedQuery(Car.FIND_ALL, Car.class).getResultList();
+        return carCache.retrieveCars();
     }
 
 //    public List<Car> retrieveCars(EngineType filter) {
