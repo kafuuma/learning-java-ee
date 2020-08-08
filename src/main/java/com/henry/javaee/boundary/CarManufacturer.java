@@ -1,6 +1,7 @@
 package com.henry.javaee.boundary;
 
 import com.henry.javaee.control.CarStorageException;
+import com.henry.javaee.control.ProcessTrackingInterceptor;
 import com.henry.javaee.entity.Car;
 import com.henry.javaee.entity.CarCreated;
 import com.henry.javaee.entity.EngineType;
@@ -12,6 +13,7 @@ import com.henry.javaee.control.CarRepository;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -27,6 +29,7 @@ public class CarManufacturer {
     @PersistenceContext
     EntityManager entityManager;
 
+    @Interceptors(ProcessTrackingInterceptor.class)
     public Car manufactureCar(Specification specification) throws CarStorageException {
         Car car = carFactory.createCar(specification);
         entityManager.persist(car);
