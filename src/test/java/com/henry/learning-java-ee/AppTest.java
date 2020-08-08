@@ -1,20 +1,20 @@
-package com.henry.learning-java-ee;
-
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-
-/**
- * Unit test for simple App.
- */
-public class AppTest 
-{
-    /**
-     * Rigorous Test :-)
-     */
-    @Test
-    public void shouldAnswerWithTrue()
-    {
-        assertTrue( true );
-    }
-}
+//package com.henry.learning-java-ee;
+//
+//import static org.junit.Assert.assertTrue;
+//
+//import org.junit.Test;
+//
+///**
+// * Unit test for simple App.
+// */
+//public class AppTest
+//{
+//    /**
+//     * Rigorous Test :-)
+//     */
+//    @Test
+//    public void shouldAnswerWithTrue()
+//    {
+//        assertTrue( true );
+//    }
+//}

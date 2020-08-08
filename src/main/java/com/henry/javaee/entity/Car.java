@@ -3,10 +3,15 @@ package com.henry.javaee.entity;
 
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="cars")
 public class Car {
 
-    @JsonbTransient
+    @Id
     private String identifier;
 
     private  Color color;

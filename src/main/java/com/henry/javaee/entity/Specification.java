@@ -1,9 +1,15 @@
 package com.henry.javaee.entity;
 
+import javax.validation.constraints.NotNull;
+
 public class Specification {
 
-    private final Color color;
-    private final EngineType engineType;
+    @NotNull
+    private  Color color;
+
+    @NotNull
+    @EnvironmentalFriendly
+    private  EngineType engineType;
 
 
 
@@ -11,6 +17,8 @@ public class Specification {
         this.color = color;
         this.engineType = engineType;
     }
+
+    public Specification(){}
 
     public Color getColor() {
         return color;
@@ -20,5 +28,11 @@ public class Specification {
         return engineType;
     }
 
+    public void setColor(Color color) {
+        this.color = color;
+    }
 
+    public void setEngineType(EngineType engineType) {
+        this.engineType = engineType;
+    }
 }

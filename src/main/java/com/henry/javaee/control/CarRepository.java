@@ -7,6 +7,7 @@ import com.henry.javaee.entity.EngineType;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 
 public class CarRepository {
@@ -15,7 +16,7 @@ public class CarRepository {
         System.out.println("persisted car = " + car);
     }
 
-    public List<Car> loadCars() {
+    public List<Car> loadCars() throws CarCreationException {
         // dummy creation
         return Arrays.asList(
                 createCar("X123A234", Color.RED, EngineType.DIESEL),
@@ -24,7 +25,11 @@ public class CarRepository {
         );
     }
 
-    private static Car createCar(String identifier, Color color, EngineType engineType) {
+    private static Car createCar(String identifier, Color color, EngineType engineType) throws CarCreationException {
+
+        if(new Random().nextBoolean()){
+            throw new CarCreationException("could not create car");
+        }
         Car car = new Car();
         car.setIdentifier(identifier);
         car.setColor(color);
